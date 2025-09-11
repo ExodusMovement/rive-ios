@@ -33,7 +33,8 @@ Pod::Spec.new do |spec|
   spec.visionos.deployment_target = '1.0'
   spec.swift_version          = '5.9'
   spec.source       = { 
-    :http => "https://github.com/rive-app/rive-ios/releases/download/6.11.3/RiveRuntime.xcframework.zip",
+    :http => 'https://github.com/ExodusMovement/rive-ios/releases/download/v6.11.3-exodus.0/RiveRuntime-6.11.3-exodus.0.zip',
+    :sha256 => '4c50da02ac83c355fccf9b019cead1ea21a143a370da46581a3b3c59fb4e89a4'
   }
   spec.ios.vendored_frameworks = 'RiveRuntime.xcframework'
   spec.osx.vendored_frameworks = 'RiveRuntime.xcframework'

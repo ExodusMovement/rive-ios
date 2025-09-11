@@ -97,3 +97,6 @@ iOSInjectionProject/
 
 # used for us to put our tar.gz lib cache
 cache/
+
+# Rive fork build artifacts
+out/
