@@ -10,6 +10,7 @@
 #import <RiveFactory.h>
 #import <CDNFileAssetLoader.h>
 #import <RiveRuntime/RiveRuntime-Swift.h>
+#import <Foundation/Foundation.h>
 
 @implementation CDNFileAssetLoader
 {}
@@ -18,60 +19,10 @@
                       andData:(NSData*)data
                    andFactory:(RiveFactory*)factory
 {
-    // TODO: Error handling
-    // TODO: Track tasks, so we can cancel them if we garbage collect the asset
-    // loader
-
-    if ([[asset cdnUuid] length] > 0)
-    {
-        NSURL* URL =
-            [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",
-                                                            [asset cdnBaseUrl],
-                                                            [asset cdnUuid]]];
-        NSURLSessionTask* task = [[NSURLSession sharedSession]
-            downloadTaskWithURL:URL
-              completionHandler:^(
-                  NSURL* location, NSURLResponse* response, NSError* error) {
-                if (!error)
-                {
-                    // Load the data into the reader
-                    NSData* data = [NSData dataWithContentsOfURL:location];
-
-#ifdef WITH_RIVE_TEXT
-                    if ([asset isKindOfClass:[RiveFontAsset class]])
-                    {
-                        RiveFontAsset* fontAsset = (RiveFontAsset*)asset;
-                        [fontAsset font:[factory decodeFont:data]];
-                        [RiveLogger logFontAssetLoad:fontAsset fromURL:URL];
-                        return;
-                    }
-#endif
-                    if ([asset isKindOfClass:[RiveImageAsset class]])
-                    {
-                        RiveImageAsset* imageAsset = (RiveImageAsset*)asset;
-                        [imageAsset renderImage:[factory decodeImage:data]];
-                        [RiveLogger logImageAssetLoad:imageAsset fromURL:URL];
-                        return;
-                    }
-                }
-                else
-                {
-                    NSString* message =
-                        [NSString stringWithFormat:
-                                      @"Failed to load asset from URL %@: %@",
-                                      URL.absoluteString,
-                                      error.localizedDescription];
-                    [RiveLogger logFile:nil error:message];
-                }
-              }];
-
-        // Kick off the http download
-        // QUESTION: Do we need to tie this into the RiveFile so we can wait for
-        // these loads to be completed?
-        [task resume];
-        return true;
-    }
-
+    // Harden: disallow any remote asset fetching through CDN loader.
+    (void)asset; (void)data; (void)factory;
+    NSCAssert(NO, @"CDNFileAssetLoader is disabled in hardened build");
+    // In Release (NS_BLOCK_ASSERTIONS), do nothing and report not handled.
     return false;
 }
 
