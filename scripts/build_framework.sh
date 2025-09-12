@@ -109,9 +109,5 @@ xcodebuild \
     -framework RiveRuntime.framework \
     -archive .build/archives/RiveRuntime_iOS_Simulator.xcarchive \
     -framework RiveRuntime.framework \
-    -archive .build/archives/RiveRuntime_macOS.xcarchive \
-    -framework RiveRuntime.framework \
-    -archive .build/archives/RiveRuntime_macOS_Catalyst.xcarchive \
-    -framework RiveRuntime.framework \
     -output archive/RiveRuntime.xcframework
 
