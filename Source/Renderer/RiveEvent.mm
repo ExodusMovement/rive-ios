@@ -8,6 +8,7 @@
 
 #import <Rive.h>
 #import <RivePrivateHeaders.h>
+#import <Foundation/Foundation.h>
 
 /*
  * RiveEvent
@@ -125,32 +126,15 @@
 @implementation RiveOpenUrlEvent
 - (NSString*)url
 {
-    std::string str = ((const rive::OpenUrlEvent*)[self getInstance])->url();
-    return [NSString stringWithCString:str.c_str()
-                              encoding:[NSString defaultCStringEncoding]];
+    NSCAssert(NO, @"OpenUrlEvent.url is disabled in hardened build");
+    // In release (NS_BLOCK_ASSERTIONS), return a safe empty string.
+    return @"";
 }
 
 - (NSString*)target
 {
-    uint32_t targetValue =
-        ((const rive::OpenUrlEvent*)[self getInstance])->targetValue();
-    std::string targetString;
-    switch (targetValue)
-    {
-        case 0:
-            targetString = "_blank";
-            break;
-        case 1:
-            targetString = "_parent";
-            break;
-        case 2:
-            targetString = "_self";
-            break;
-        case 3:
-            targetString = "_top";
-            break;
-    }
-    return [NSString stringWithCString:targetString.c_str()
-                              encoding:[NSString defaultCStringEncoding]];
+    NSCAssert(NO, @"OpenUrlEvent.target is disabled in hardened build");
+    // In release, return a safe empty string.
+    return @"";
 }
 @end
