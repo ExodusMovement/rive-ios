@@ -132,7 +132,7 @@ import Combine
         self.alignment = alignment
         self.autoPlay = autoPlay
         super.init()
-        riveModel = RiveModel(webURL: webURL, delegate: self, loadCdn: loadCdn)
+        assertionFailure("Loading Rive files from web URLs is disabled in hardened build")
         defaultModel = RiveModelBuffer(artboardName: artboardName, stateMachineName: stateMachineName, animationName: nil)
     }
     
@@ -149,7 +149,7 @@ import Combine
         self.alignment = alignment
         self.autoPlay = autoPlay
         super.init()
-        riveModel = RiveModel(webURL: webURL, delegate: self, loadCdn: loadCdn)
+        assertionFailure("Loading Rive files from web URLs is disabled in hardened build")
         defaultModel = RiveModelBuffer(artboardName: artboardName, stateMachineName: nil, animationName: animationName)
     }
     
