@@ -13,6 +13,7 @@
 #import <RiveFileAssetLoader.h>
 #import <CDNFileAssetLoader.h>
 #import <RiveRuntime/RiveRuntime-Swift.h>
+#import <Foundation/Foundation.h>
 
 #import <FileAssetLoaderAdapter.hpp>
 
@@ -252,13 +253,9 @@
                                  loadCdn:(bool)loadCdn
                             withDelegate:(id<RiveFileDelegate>)delegate
 {
-    return [self initWithHttpUrl:url
-                         loadCdn:loadCdn
-               customAssetLoader:^bool(
-                   RiveFileAsset* asset, NSData* data, RiveFactory* factory) {
-                 return false;
-               }
-                    withDelegate:delegate];
+    (void)url; (void)loadCdn; (void)delegate;
+    NSCAssert(NO, @"Loading Rive files over HTTP is disabled in hardened build");
+    return nil;
 }
 
 - (nullable instancetype)initWithHttpUrl:(nonnull NSString*)url
@@ -266,62 +263,8 @@
                        customAssetLoader:(nonnull LoadAsset)customAssetLoader
                             withDelegate:(nonnull id<RiveFileDelegate>)delegate
 {
-    [RiveLogger logLoadingFromResource:url];
-    self.isLoaded = false;
-    if (self = [super init])
-    {
-        self.delegate = delegate;
-        // Set up the http download task
-        NSURL* URL = [NSURL URLWithString:url];
-
-        // TODO: we are still adding 8MB of memory when we load our first http
-        // url.
-        NSURLSessionTask* task = [[NSURLSession sharedSession]
-            downloadTaskWithURL:URL
-              completionHandler:^(
-                  NSURL* location, NSURLResponse* response, NSError* error) {
-                if (!error)
-                {
-                    // Load the data into the reader
-                    NSData* data = [NSData dataWithContentsOfURL:location];
-                    UInt8* bytes = (UInt8*)[data bytes];
-                    // TODO: Do something with this error the proper way with
-                    // delegates.
-                    NSError* error = nil;
-                    [self import:bytes
-                               byteLength:[data length]
-                                  loadCdn:true
-                        customAssetLoader:customAssetLoader
-                                    error:&error];
-                    self.isLoaded = true;
-                    [RiveLogger logLoadedFromURL:URL];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                      if ([[NSThread currentThread] isMainThread])
-                      {
-                          if ([self.delegate respondsToSelector:@selector
-                                             (riveFileDidLoad:error:)])
-                          {
-                              NSError* error = nil;
-                              [self.delegate riveFileDidLoad:self error:&error];
-                          }
-                      }
-                    });
-                }
-                else
-                {
-                    NSString* message = [NSString
-                        stringWithFormat:@"Failed to load file from URL %@: %@",
-                                         URL.absoluteString,
-                                         error.localizedDescription];
-                    [RiveLogger logFile:nil error:message];
-                }
-              }];
-
-        // Kick off the http download
-        [task resume];
-        return self;
-    }
-
+    (void)url; (void)cdn; (void)customAssetLoader; (void)delegate;
+    NSCAssert(NO, @"Loading Rive files over HTTP is disabled in hardened build");
     return nil;
 }
 
@@ -330,9 +273,12 @@
        loadCdn:(bool)loadCdn
          error:(NSError**)error
 {
+    if (loadCdn) {
+        NSCAssert(NO, @"CDN asset loading is disabled in hardened build");
+    }
     return [self import:bytes
                byteLength:length
-                  loadCdn:loadCdn
+                  loadCdn:false /* force-disable CDN */
         customAssetLoader:^bool(
             RiveFileAsset* asset, NSData* data, RiveFactory* factory) {
           return false;
@@ -357,10 +303,10 @@
         [[CustomFileAssetLoader alloc] initWithLoader:custom];
     [fallbackLoader addLoader:customAssetLoader];
 
-    if (loadCdn)
-    {
-        CDNFileAssetLoader* cdnLoader = [[CDNFileAssetLoader alloc] init];
-        [fallbackLoader addLoader:cdnLoader];
+    // Harden: never add CDN loader; assert if requested.
+    if (loadCdn) {
+        NSCAssert(NO, @"CDN asset loading is disabled in hardened build");
+        // intentionally do not add CDNFileAssetLoader
     }
 
     fileAssetLoader = new rive::FileAssetLoaderAdapter(fallbackLoader);
