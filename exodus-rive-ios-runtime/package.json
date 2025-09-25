@@ -1,6 +1,6 @@
 {
    "name": "@exodus/rive-ios-runtime",
-   "version": "6.11.3-exodus.0",
+   "version": "6.11.3-exodus.1",
    "description": "Exodus hardened fork of Rive iOS Runtime",
    "files": [
       "RiveRuntime.xcframework",
