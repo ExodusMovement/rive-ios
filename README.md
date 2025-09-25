@@ -1,7 +1,26 @@
+# Exodus Rive iOS Fork
+
+Hardened fork of [rive-ios](https://github.com/rive-app/rive-ios) for use in **Exodus Mobile**.  
+Remote/CDN `.riv` loading is disabled — only bundled local resources are supported.
+
+---
+
+## 📦 Distribution
+
+The runtime is shipped as an npm package: [`@exodus/rive-ios-runtime`](./exodus-rive-ios-runtime).
+
+## 🔨 Build & Publish
+
+Use the helper script:
+
+```sh
+./build-npm-rive-ios.sh # build + publish (default)
+./build-npm-rive-ios.sh --no-publish # build only
+```
+
 [![Emerge badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fwww.emergetools.com%2Fapi%2Fv2%2Fpublic_new_build%3FexampleId%3Drive.app.ios.runtime.RiveRuntime%26platform%3Dios%26badgeOption%3Dversion_and_max_install_size%26buildType%3Drelease&query=%24.badgeMetadata&logo=apple&label=RiveRuntime)](https://www.emergetools.com/app/example/ios/rive.app.ios.runtime.RiveRuntime/release)
 ![Discord badge](https://img.shields.io/discord/532365473602600965)
 ![Twitter handle](https://img.shields.io/twitter/follow/rive_app.svg?style=social&label=Follow)
-
 
 # Rive iOS
 
@@ -13,13 +32,13 @@ The library is distributed both through Swift Package Manager and Cocoapods.
 
 ## Table of contents
 
-- :star: [Rive Overview](#rive-overview)
-- 🚀 [Getting Started & API docs](#getting-started)
-- :mag: [Supported Devices](#supported-devices)
-- :books: [Examples](#examples)
-- :runner: [Migration Guides](#migration-guides)
-- 👨‍💻 [Contributing](#contributing)
-- :question: [Issues](#issues)
+-  :star: [Rive Overview](#rive-overview)
+-  🚀 [Getting Started & API docs](#getting-started)
+-  :mag: [Supported Devices](#supported-devices)
+-  :books: [Examples](#examples)
+-  :runner: [Migration Guides](#migration-guides)
+-  👨‍💻 [Contributing](#contributing)
+-  :question: [Issues](#issues)
 
 ## Rive overview
 
@@ -35,17 +54,17 @@ The library is distributed both through Swift Package Manager and Cocoapods.
 
 To get started with Rive Apple runtime, check out the following resources:
 
-- [Getting Started with the Rive Apple runtime](https://rive.app/docs/runtimes/apple/apple)
+-  [Getting Started with the Rive Apple runtime](https://rive.app/docs/runtimes/apple/apple)
 
 For more information, see the Runtime sections of the Rive help documentation:
 
-- [Animation Playback](https://rive.app/docs/runtimes/animation-playback)
-- [Layout](https://rive.app/docs/runtimes/layout)
-- [State Machines](https://rive.app/docs/runtimes/state-machines)
-- [Rive Text](https://rive.app/docs/runtimes/text)
-- [Rive Events](https://rive.app/docs/runtimes/rive-events)
-- [Loading Assets](https://rive.app/docs/runtimes/loading-assets)
-- [Data Binding](https://rive.app/docs/runtimes/data-binding)
+-  [Animation Playback](https://rive.app/docs/runtimes/animation-playback)
+-  [Layout](https://rive.app/docs/runtimes/layout)
+-  [State Machines](https://rive.app/docs/runtimes/state-machines)
+-  [Rive Text](https://rive.app/docs/runtimes/text)
+-  [Rive Events](https://rive.app/docs/runtimes/rive-events)
+-  [Loading Assets](https://rive.app/docs/runtimes/loading-assets)
+-  [Data Binding](https://rive.app/docs/runtimes/data-binding)
 
 ## Supported platforms
 
@@ -61,11 +80,11 @@ Open `RiveRuntime.xcworkspace` in Xcode and ensure the selected scheme is set to
 
 The example showcases a number of ways to use the high-level `RiveViewModel` API through UIKit and SwiftUI examples, including:
 
-- Setting a Rive file via a URL or asset in the bundle
-- Setting layout and loop mode options
-- Displaying single or multiple animations / artboards on one component
-- Setting up and maniuplating a state machine via inputs
-- ...and more!
+-  Setting a Rive file via a URL or asset in the bundle
+-  Setting layout and loop mode options
+-  Displaying single or multiple animations / artboards on one component
+-  Setting up and maniuplating a state machine via inputs
+-  ...and more!
 
 ### Awesome Rive
 
@@ -84,3 +103,7 @@ We love contributions! Check out our [contributing docs](./CONTRIBUTING.md) to g
 ## Issues
 
 Have an issue with using the runtime, or want to suggest a feature/API to help make your development life better? Log an issue in our [issues](https://github.com/rive-app/rive-ios/issues) tab! You can also browse older issues and discussion threads there to see solutions that may have worked for common problems.
+
+```
+
+```
