@@ -89,6 +89,12 @@ if [ "$DO_PUBLISH" = true ]; then
   cd "$NPM_PACKAGE_DIR"
   npm publish --access public
   echo "✅ Published @exodus/rive-ios-runtime@$NEW_VERSION"
+
+  # cleanup after publish
+  echo "🗑️  Cleaning up built xcframework..."
+  rm -rf "$DEST_DIR/RiveRuntime.xcframework"
+  rm -rf "$PROJECT_ROOT/archive"
+  echo "✅ Cleanup complete"
 else
   echo "⚡ Build complete (no publish)"
 fi
