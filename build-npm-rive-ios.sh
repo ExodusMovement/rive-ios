@@ -25,6 +25,7 @@ done
 
 # 1. Update submodule
 echo "🔄 Updating rive-runtime submodule..."
+git submodule init
 git submodule update --remote -- submodules/rive-runtime
 
 # 2. Clean & build
