@@ -86,6 +86,9 @@ else
     sed -i '' '/^SWIFT_ACTIVE_COMPILATION_CONDITIONS = /s/= .*/= $(inherited) RIVE_MAC_CATALYST/' $DEV_SCRIPT_DIR/../Config/Catalyst.xcconfig
 fi
 
+premake5() {
+    "$DEV_SCRIPT_DIR/../submodules/rive-runtime/build/dependencies/premake-core/bin/release/premake5" "$@"
+}
 
 make_dependency_directories() {
     rm -fr $DEV_SCRIPT_DIR/../dependencies
